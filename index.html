@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitHub - Smarter Strength Training</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 0;
+            border-bottom: 1px solid #333;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: #999;
+            font-size: 1.1rem;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .primary-button,
+        .secondary-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .primary-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+
+        .secondary-button {
+            border: 1px solid #333;
+            color: #fff;
+        }
+
+        .primary-button:hover,
+        .secondary-button:hover {
+            transform: translateY(-2px);
+            border-color: #667eea;
+        }
+
+        .section {
+            margin: 3rem 0;
+        }
+
+        .section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+        }
+
+        .feature-card {
+            padding: 1.5rem;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 0.5rem;
+            color: #667eea;
+            font-size: 1.05rem;
+        }
+
+        .feature-card p {
+            color: #ccc;
+        }
+
+        .split {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .list-card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .list-card ul {
+            list-style: none;
+        }
+
+        .list-card li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #222;
+            color: #ccc;
+        }
+
+        .list-card li:last-child {
+            border-bottom: none;
+        }
+
+        .metric-bar {
+            height: 6px;
+            border-radius: 999px;
+            background: #222;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+
+        .metric-bar span {
+            display: block;
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .highlight {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .highlight p {
+            color: #ccc;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 3rem;
+            border-radius: 12px;
+            text-align: center;
+            margin: 3rem 0;
+        }
+
+        .cta-section h2 {
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #fff;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        .faq-item {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .faq-question:hover {
+            background: #222;
+        }
+
+        .faq-question h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            color: #667eea;
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 1.5rem;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 0 1.5rem 1.5rem 1.5rem;
+        }
+
+        .faq-answer p {
+            color: #ccc;
+            line-height: 1.8;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid #333;
+            margin-top: 4rem;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏋️ FitHub</h1>
+            <p class="subtitle">
+                Smarter strength training for real people. FitHub builds personalized workouts,
+                tracks your progress automatically, and helps you understand exactly how strong you are.
+            </p>
+            <div class="hero-actions">
+                <a href="#get-started" class="primary-button">Get FitHub</a>
+                <a href="#features" class="secondary-button">See Features</a>
+            </div>
+        </header>
+
+        <section class="section" id="features">
+            <h2>Why FitHub</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>✨ Personalized workout generation</h3>
+                    <p>Create workouts built around your equipment, goals, and current strength levels.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📈 Progress tracking that updates itself</h3>
+                    <p>Every completed workout updates your performance metrics and history.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🧠 Strength intelligence</h3>
+                    <p>See your fitness category per exercise and get a clear sense of where you stand.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🧩 Templates that adapt</h3>
+                    <p>Save templates, reuse them, and let FitHub refine them as you improve.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🏷️ Exercise library with filters</h3>
+                    <p>Find what you need fast by muscle, equipment, or difficulty.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔔 Smart scheduling</h3>
+                    <p>Schedule workouts, get reminders, and build consistency without the chaos.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Built for the gym you actually have</h2>
+            <div class="split">
+                <div class="list-card">
+                    <h3>Equipment-aware training</h3>
+                    <p>Tell FitHub what you have access to and it adapts your workouts automatically.</p>
+                    <div class="metric-bar"><span></span></div>
+                    <ul>
+                        <li>Home gym? Full gym? Anywhere in between.</li>
+                        <li>Exercises filtered to your available equipment.</li>
+                        <li>Smart swaps keep the plan effective.</li>
+                    </ul>
+                </div>
+                <div class="list-card">
+                    <h3>Understand your progress</h3>
+                    <p>Track improvements over time with exercise-level insights.</p>
+                    <div class="metric-bar"><span></span></div>
+                    <ul>
+                        <li>History view for every completed workout.</li>
+                        <li>Performance graphs on every exercise.</li>
+                        <li>Clear strength category per lift.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>How FitHub works</h2>
+            <div class="highlight">
+                <p>
+                    1) Set your equipment and goals. 2) Log a few workouts or maxes. 3) Let FitHub
+                    generate a plan that reflects your current strength level. As you train, your
+                    data updates automatically so every future session stays tailored to you.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Questions before you start?</h2>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Do I need a full gym to use FitHub?</h3>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>No. FitHub adapts to your equipment list so workouts fit your setup.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Can I create my own templates?</h3>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes. Build custom templates or use the trainer-generated plans and tweak them.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>How does FitHub track progress?</h3>
+                    <span class="faq-toggle">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <p>FitHub automatically logs completed workouts and updates your performance history.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section" id="get-started">
+            <h2>Ready to train smarter?</h2>
+            <p>Download FitHub and build workouts that actually match your strength.</p>
+            <a href="mailto:support@fithub-app.com" class="cta-button">Get FitHub</a>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 FitHub. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                const isActive = item.classList.contains('active');
+
+                document.querySelectorAll('.faq-item').forEach(faq => {
+                    faq.classList.remove('active');
+                });
+
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
